@@ -2,42 +2,71 @@ const {productService} = require('../../service');
 
 module.exports = {
 
-    createProduct: (req, res) => {
-        const {id, name, power, price, year} = req.body;
+    createProduct: async (req, res) => {
+        try {
+            // const {id, name, power, price, year} = req.body;
+            const car = req.body;
 
-        productService.createProduct(id, name, power, price, year);
+            // productService.createProduct(id, name, power, price, year);
+            await productService.createProduct(car)
 
-        res.json(req.body);
+            res.sendStatus(204);
+        } catch (e) {
+            res.json(e)
+        }
+
     },
 
-    getProduct: (req, res) => {
-        const {idOfProduct} = req.params;
-        const car = productService.getProduct(+idOfProduct);
+    getProduct: async (req, res) => {
+        try {
+            const {idOfProduct} = req.params;
+            const car = await productService.getProduct(+idOfProduct);
 
-        res.json(car);
+            res.json(car);
+        } catch (e) {
+            res.json(e)
+        }
+
     },
 
-    getAllProducts: (req, res) => {
-        const cars = productService.getAllProducts();
+    getAllProducts: async (req, res) => {
+        try {
+            const cars = await productService.getAllProducts();
 
-        res.json(cars);
+            res.json(cars);
+        } catch (e) {
+            res.json(e)
+        }
+
     },
 
-    updateProduct: (req, res) => {
-        const {idOfProduct} = req.params;
-        const {id, name, power, price, year} = req.body;
+    updateProduct: async (req, res) => {
+        try {
+            const {idOfProduct} = req.params;
+            // const {id, name, power, price, year} = req.body;
+            const car = req.body;
 
-        productService.updateProduct(+idOfProduct, id, name, power, price, year);
+            // productService.updateProduct(+idOfProduct, id, name, power, price, year);
+            await productService.updateProduct(+idOfProduct, car)
 
-        res.json(req.body);
+            res.sendStatus(204);
+        } catch (e) {
+            res.json(e)
+        }
+
     },
 
-    deleteProduct: (req, res) => {
-        const {idOfProduct} = req.params;
+    deleteProduct: async (req, res) => {
+        try {
+            const {idOfProduct} = req.params;
 
-        productService.deleteProduct(+idOfProduct);
+            await productService.deleteProduct(+idOfProduct);
 
-        res.json();
+            res.sendStatus(204);
+        } catch (e) {
+            res.json(e)
+        }
+
     }
 
 };
